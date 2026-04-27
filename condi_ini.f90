@@ -103,17 +103,30 @@ contains
 
       else if (test_case == 'Laser') then
 
-      print*,'TO DO :)'
+      ! print*,'TO DO :)'
 
-      Lxmin = 0._PR
-      Lxmax = 1._PR  
+         Lxmin = 0._PR
+         Lxmax = 0.001030_PR  
         
-      N = 3 ! Number of equations (we start from 1)
-      Nx = 400
+         N = 3 ! Number of equations (we start from 1)
+         Nx = 400
 
-      Lx = Lxmax - Lxmin
-      dx = Lx / Nx
+         Lx = Lxmax - Lxmin
+         dx = Lx / Nx
     
+      
+         !rho_init = 3900.0D0
+         !pre_init = 1e+5
+         speed_x = 0.0D0
+         Gamma0 = 0.1D0
+         C0 = 7410
+         s1 = 0.0D0 
+         rho0 = 3900
+         shear_modulus = 1.47e+11
+         yield_strength = 7e+9
+
+         T_final = 5.0D-7
+
       end if
 
     
