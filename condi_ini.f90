@@ -24,7 +24,8 @@ contains
 
       ! Choix du cas test
       !test_case = 'Sod'
-      test_case = 'Impact'
+      !test_case = 'Impact'
+      test_case = 'Laser'
 
       if (test_case == 'Sod') then
          Lxmin = 0._PR
@@ -114,7 +115,11 @@ contains
          Lx = Lxmax - Lxmin
          dx = Lx / Nx
     
+
+         allocate( tab_cells(1:Nx), tab_nodes(1:Nx+1), phi_initial(1:N,0:Nx+1) )
+         allocate( rho(1:Nx), speed_x(1:Nx), internal_energy(1:Nx), pressure(1:Nx) )
       
+
          !rho_init = 3900.0D0
          !pre_init = 1e+5
          speed_x = 0.0D0
@@ -125,7 +130,16 @@ contains
          shear_modulus = 1.47e+11
          yield_strength = 7e+9
 
+         CFL     = 0.45_PR
          T_final = 5.0D-7
+
+         phi_initial(1:N,1:Nx) = 0._PR
+
+         do i = 1, Nx
+            rho(i) = rho0
+            speed_x(i) = 0._PR
+            pressure(i) = 0._PR
+         end do
 
       end if
 

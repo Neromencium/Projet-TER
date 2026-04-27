@@ -19,9 +19,12 @@ contains
       real(kind=PR),dimension(1:Nx),intent(in):: imped, stress ! Tableau des impedances et des contraintes
       real(kind=PR),dimension(1:Nx+1),intent(inout) :: u_int ! Tableau des vitesses nodales
       real(kind=PR),dimension(1:Nx+1),intent(inout) :: stress_int ! Tableau des pressions aux interfaces
-      real(PR), intent(in) :: temps !Indice d'incrémentation'
+      real(PR), intent(in) :: temps
+      
+      integer :: compteur, j
+      real(PR) :: reel_t, reel_p, reel_t1, reel_p1
 
-      real(PR) :: reel
+      compteur = 0
 
       if (test_case == 'Sod') then
       ! Bord gauche 
@@ -45,15 +48,28 @@ contains
 
       else if (test_case == 'Laser') then
       
-      !open(unit = 10, file = "", action = "read")        
-      !read(10,*) reel, phi(2,1)
-      !close(10)
 
-      !stress_int(1) = 1e-6
-      !u_int(1) = phi(2,1) + ( stress_int(1) + stress(1) ) / imped(1)
+      open(unit = 10, file = "pression_laser.dat", action = "read")        
+      do j = 1, compteur 
+         read(10,*) reel_t, reel_p
+      end do
+      if (j <= 1502) then
+         read(10,*) reel_t1, reel_p1
+      end if
+      close(10)
 
-      !stress_int(Nx+1) = 1e-6
-      !u_int(Nx+1) = phi(2,Nx) + ( stress_int(Nx+1) + stress(Nx) ) / imped(Nx)
+
+      if (temps > reel_t1) then
+         stress_int(1) = reel_p1
+         compteur = compteur + 1
+      else
+         stress_int(1) = reel_p
+      end if
+
+      u_int(1) = phi(2,1) + ( stress_int(1) + stress(1) ) / imped(1)
+
+      stress_int(Nx+1) = 0
+      u_int(Nx+1) = phi(2,Nx) + ( stress_int(Nx+1) + stress(Nx) ) / imped(Nx)
        
       end if
    end subroutine condition_limites
