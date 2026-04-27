@@ -13,13 +13,13 @@ module cond_lim
 
 contains
 
-   subroutine condition_limites( phi, imped, stress, u_int, stress_int, k)
+   subroutine condition_limites( phi, imped, stress, u_int, stress_int, temps)
       implicit none
       real(kind=PR),dimension(1:N,1:Nx),intent(in):: phi
       real(kind=PR),dimension(1:Nx),intent(in):: imped, stress ! Tableau des impedances et des contraintes
       real(kind=PR),dimension(1:Nx+1),intent(inout) :: u_int ! Tableau des vitesses nodales
       real(kind=PR),dimension(1:Nx+1),intent(inout) :: stress_int ! Tableau des pressions aux interfaces
-      integer, intent(in) :: k !Indice d'incrémentation'
+      real(PR), intent(in) :: temps !Indice d'incrémentation'
 
       real(PR) :: reel
 

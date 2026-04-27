@@ -48,7 +48,7 @@ contains
          end do
 
          ! Calcul condition limite
-         call condition_limites(phi(1:N,1:Nx), imped(1:Nx), stress(1:Nx), u_int(1:Nx+1), stress_int(1:Nx+1), kk)
+         call condition_limites(phi(1:N,1:Nx), imped(1:Nx), stress(1:Nx), u_int(1:Nx+1), stress_int(1:Nx+1), temps)
 
          ! Calcul des flux numériques
          do i = 2, Nx
