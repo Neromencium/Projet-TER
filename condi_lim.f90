@@ -65,6 +65,7 @@ contains
       else
          stress_int(1) = reel_p
       end if
+      
 
       u_int(1) = phi(2,1) + ( stress_int(1) + stress(1) ) / imped(1)
 
